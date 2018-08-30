@@ -14,6 +14,9 @@ int main(int argc, char* argv[])
             {
 #endif
                 vkn::Window::initSurface();
+                {
+
+                }
                 vkn::Window::destroySurface();
 #ifdef DEBUG
             }

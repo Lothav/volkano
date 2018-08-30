@@ -57,7 +57,7 @@ void vkn::XCBSurface::initWindow()
     xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen->root, 0, 0, width, height, 0,
                       XCB_WINDOW_CLASS_INPUT_OUTPUT, screen->root_visual, value_mask, value_list);
 
-/* Magic code that will send notification when window is destroyed */
+    /* Magic code that will send notification when window is destroyed */
     xcb_intern_atom_cookie_t cookie = xcb_intern_atom(connection, 1, 12, "WM_PROTOCOLS");
     {
         std::unique_ptr<xcb_intern_atom_reply_t> reply (xcb_intern_atom_reply(connection, cookie, 0));
@@ -71,7 +71,7 @@ void vkn::XCBSurface::initWindow()
     xcb_flush(connection);
     xcb_map_window(connection, window);
 
-// Force the x/y coordinates to 100, 100 results are identical in consecutive runs
+    // Force the x/y coordinates to 100, 100 results are identical in consecutive runs
     const uint32_t coords[] = {100, 100};
     xcb_configure_window(connection, window, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y, coords);
     xcb_flush(connection);
