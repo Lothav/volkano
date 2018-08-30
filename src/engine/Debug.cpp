@@ -4,7 +4,7 @@
 
 #include "Debug.hpp"
 
-PFN_vkCreateDebugUtilsMessengerEXT  vkn::Debug::CreateDebugUtilsMessengerEXT ;
+PFN_vkCreateDebugUtilsMessengerEXT  vkn::Debug::CreateDebugUtilsMessengerEXT;
 PFN_vkDestroyDebugUtilsMessengerEXT vkn::Debug::DestroyDebugUtilsMessengerEXT;
 VkDebugUtilsMessengerEXT            vkn::Debug::dbg_messenger;
 

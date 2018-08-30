@@ -4,20 +4,25 @@
 
 int main(int argc, char* argv[])
 {
-    vkn::Instance::init();
+
+    vkn::Window::init();
     {
-#ifdef DEBUG
-        vkn::Debug::init();
+        vkn::Instance::init();
         {
+#ifdef DEBUG
+            vkn::Debug::init();
+            {
 #endif
 
 
 #ifdef DEBUG
-        }
-        vkn::Debug::destroy();
+            }
+            vkn::Debug::destroy();
 #endif
+        }
+        vkn::Instance::destroy();
     }
-    vkn::Instance::destroy();
+    vkn::Window::destroy();
 
     return EXIT_SUCCESS;
 }

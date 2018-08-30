@@ -5,26 +5,25 @@
 #ifndef VOLKANO_XCBWINDOW_HPP
 #define VOLKANO_XCBWINDOW_HPP
 
-#include "Window.hpp"
+#include "Surface.hpp"
 #include <memory>
 #include <vulkan/vulkan.h>
 
 namespace vkn
 {
-    class XCBWindow : Window
+    class XCBSurface : Surface
     {
 
     private:
 
-        static std::shared_ptr<Window> class_instance;
+        static std::shared_ptr<Surface> class_instance;
 
-        XCBWindow() = default;
+        XCBSurface() = default;
 
     public:
 
-        static std::shared_ptr<Window> getInstance();
-
-        const char* getSurface() override;
+        static std::shared_ptr<Surface> getInstance();
+        const char* getSurfaceName() override;
     };
 }
 

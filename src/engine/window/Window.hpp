@@ -5,18 +5,28 @@
 #ifndef VOLKANO_WINDOW_HPP
 #define VOLKANO_WINDOW_HPP
 
+#include <memory>
+#include <cassert>
+#include <iostream>
+#include "Surface.hpp"
+#include "XCBSurface.hpp"
+
 namespace vkn
 {
     class Window
     {
 
-    protected:
+    private:
 
-        Window() = default;
+        static std::shared_ptr<Surface> surface;
 
     public:
 
-        virtual const char* getSurface() { return nullptr;};
+        static void init();
+        static void destroy();
+
+        static const char* getSurfaceName();
+
     };
 }
 
