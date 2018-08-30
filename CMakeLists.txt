@@ -24,7 +24,7 @@ include_directories(include external/)
 
 # SOURCE FILES
 set(CORE_MAIN_FILE src/main.cpp)
-file(GLOB_RECURSE CORE_HEADER_FILES engine/*)
+file(GLOB_RECURSE CORE_HEADER_FILES src/engine/*)
 file(GLOB_RECURSE EXTERNAL_HEADER_FILES external/*)
 
 # ADD EXEC AND LINK LIBS
