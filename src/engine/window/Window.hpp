@@ -23,7 +23,9 @@ namespace vkn
     public:
 
         static void init();
+        static void initSurface();
         static void destroy();
+        static void destroySurface();
 
         static const char* getSurfaceName();
 

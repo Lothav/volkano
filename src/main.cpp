@@ -1,10 +1,10 @@
 #include <iostream>
 #include "engine/Instance.hpp"
 #include "engine/Debug.hpp"
+#include "engine/window/Window.hpp"
 
 int main(int argc, char* argv[])
 {
-
     vkn::Window::init();
     {
         vkn::Instance::init();
@@ -13,8 +13,8 @@ int main(int argc, char* argv[])
             vkn::Debug::init();
             {
 #endif
-
-
+                vkn::Window::initSurface();
+                vkn::Window::destroySurface();
 #ifdef DEBUG
             }
             vkn::Debug::destroy();

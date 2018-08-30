@@ -12,8 +12,15 @@ void vkn::Window::init()
     surface = XCBSurface::getInstance();
 #else
     std::cerr << "Platform not supported!" << std::endl;
-            assert(false);
+    assert(false);
 #endif
+
+    surface->initWindow();
+}
+
+void vkn::Window::initSurface()
+{
+    surface->initSurface();
 }
 
 const char* vkn::Window::getSurfaceName()
@@ -28,5 +35,10 @@ const char* vkn::Window::getSurfaceName()
 
 void vkn::Window::destroy()
 {
-    // destroy surface
+    surface->destroyWindow();
+}
+
+void vkn::Window::destroySurface()
+{
+    surface->destroySurface();
 }

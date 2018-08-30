@@ -11,8 +11,6 @@
 #include <iostream>
 #include <cstring>
 #include <bits/unique_ptr.h>
-#include "window/Window.hpp"
-#include "window/XCBSurface.hpp"
 
 #define APP_NAME "Volkano"
 

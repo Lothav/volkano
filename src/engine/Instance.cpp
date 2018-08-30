@@ -3,6 +3,7 @@
 //
 
 #include "Instance.hpp"
+#include "window/Window.hpp"
 
 VkInstance vkn::Instance::instance;
 constexpr std::array<const char *, 1> vkn::Instance::DESIRED_LAYERS;
