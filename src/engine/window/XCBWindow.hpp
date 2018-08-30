@@ -22,20 +22,9 @@ namespace vkn
 
     public:
 
-        static std::shared_ptr<Window> getInstance()
-        {
-            if (class_instance == nullptr) {
-                std::shared_ptr<Window> window_s_ptr (static_cast<Window*>(new XCBWindow()));
-                class_instance = std::move(window_s_ptr);
-            }
+        static std::shared_ptr<Window> getInstance();
 
-            return class_instance;
-        };
-
-        const char* getSurface() override
-        {
-            return VK_KHR_XCB_SURFACE_EXTENSION_NAME;
-        }
+        const char* getSurface() override;
     };
 }
 
