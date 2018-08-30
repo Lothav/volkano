@@ -3,6 +3,9 @@ project(volkano)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake-modules")
 
+# ENABLE DEBUG
+add_definitions(-DDEBUG)
+
 # FIND VULKAN
 find_package(Vulkan)
 IF (NOT Vulkan_FOUND)

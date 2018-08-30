@@ -4,28 +4,22 @@
 
 #include "Debug.hpp"
 
-static void vkn::Debug::init()
-{
-    if(running) {
-        std::cerr << "Debug already running!" << std::endl;
-        return;
-    }
+PFN_vkCreateDebugUtilsMessengerEXT  vkn::Debug::CreateDebugUtilsMessengerEXT ;
+PFN_vkDestroyDebugUtilsMessengerEXT vkn::Debug::DestroyDebugUtilsMessengerEXT;
+VkDebugUtilsMessengerEXT            vkn::Debug::dbg_messenger;
 
-    mtx.lock();
+void vkn::Debug::init()
+{
 
     // Setup our pointers to the VK_EXT_debug_utils commands
-    CreateDebugUtilsMessengerEXT =
-            (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
-                    Instance::instance, "vkCreateDebugUtilsMessengerEXT");
-    DestroyDebugUtilsMessengerEXT =
-            (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
-                    Instance::instance, "vkDestroyDebugUtilsMessengerEXT");
+    CreateDebugUtilsMessengerEXT  = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(Instance::instance, "vkCreateDebugUtilsMessengerEXT");
+    DestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(Instance::instance, "vkDestroyDebugUtilsMessengerEXT");
 
     PFN_vkDebugUtilsMessengerCallbackEXT debug_messenger_callback = [](
-            VkDebugUtilsMessageSeverityFlagBitsEXT           messageSeverity,
-            VkDebugUtilsMessageTypeFlagsEXT                  messageType,
-            const VkDebugUtilsMessengerCallbackDataEXT*      pCallbackData,
-            void*                                            pUserData) -> VkBool32
+            VkDebugUtilsMessageSeverityFlagBitsEXT       messageSeverity,
+            VkDebugUtilsMessageTypeFlagsEXT              messageType,
+            const VkDebugUtilsMessengerCallbackDataEXT*  pCallbackData,
+            void*                                        pUserData) -> VkBool32
     {
         if(messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT)      std::cout << "VERBOSE: ";
         else if(messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT)    std::cout << "INFO: ";
@@ -54,22 +48,9 @@ static void vkn::Debug::init()
 
     VkResult result = CreateDebugUtilsMessengerEXT(Instance::instance, &dbg_messenger_create_info, nullptr, &dbg_messenger);
     assert(result == VK_SUCCESS);
-
-    running = true;
-
-    mtx.unlock();
 }
 
-static void vkn::Debug::destroy()
+void vkn::Debug::destroy()
 {
-    if(!running) {
-        std::cerr << "Cannot destroy Debug. Isn't not running!" << std::endl;
-        return;
-    }
-    mtx.lock();
-
     DestroyDebugUtilsMessengerEXT(Instance::instance, dbg_messenger, nullptr);
-    running = false;
-
-    mtx.unlock();
 }
