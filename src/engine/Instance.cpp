@@ -103,7 +103,7 @@ std::vector<const char *> vkn::Instance::getLayersNames()
     return layer_names;
 }
 
-static void vkn::Instance::setGlobalExtensionProperties(LayerProperties* layer_props)
+void vkn::Instance::setGlobalExtensionProperties(LayerProperties* layer_props)
 {
     VkExtensionProperties *instance_extensions;
     uint32_t instance_extension_count;
