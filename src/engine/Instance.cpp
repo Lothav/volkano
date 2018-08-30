@@ -54,7 +54,13 @@ std::vector<const char *> vkn::Instance::getExtensionsNames()
 {
     std::vector<const char *> _instance_extension_names;
     _instance_extension_names.emplace_back(VK_KHR_SURFACE_EXTENSION_NAME);
+#ifdef VK_USE_PLATFORM_XCB_KHR
     _instance_extension_names.emplace_back(XCBWindow::getInstance()->getSurface());
+#else
+    std::cerr << "Platform not supported!" << std::endl;
+    assert(false);
+#endif
+
 #ifdef DEBUG
     _instance_extension_names.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 #endif
