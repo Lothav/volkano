@@ -19,7 +19,7 @@ u_int32_t                               vkn::Device::queue_graphic_family_index 
 void vkn::Device::init()
 {
     findPhysicalDevice();
-    findGraphicQueue();
+    setFamilyAndMemoryProperties();
 
     float queue_priorities[1] = {0.0};
 
@@ -81,7 +81,7 @@ void vkn::Device::findPhysicalDevice()
     physical_device = gpu_vector[gpu_index];
 }
 
-void vkn::Device::findGraphicQueue()
+void vkn::Device::setFamilyAndMemoryProperties()
 {
     vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &queue_family_count, nullptr);
     assert(queue_family_count > 0);

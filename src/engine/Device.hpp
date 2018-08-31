@@ -20,19 +20,16 @@ namespace vkn
         static VkDevice                                 device;
         static VkPhysicalDevice                         physical_device;
         static VkPhysicalDeviceMemoryProperties 		memory_properties;
-
         static std::vector<VkQueueFamilyProperties>     queue_family_props;
         static uint32_t 						        queue_family_count;
-
         static u_int32_t                                queue_graphic_family_index;
 
         static void init();
-
         static void destroy();
 
     private:
 
-        static void findGraphicQueue();
+        static void setFamilyAndMemoryProperties();
         static void findPhysicalDevice();
     };
 
