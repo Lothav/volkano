@@ -25,12 +25,15 @@ namespace vkn
         static uint32_t 						        queue_family_count;
 
         static u_int32_t                                queue_graphic_family_index;
-        static u_int32_t                                queue_compute_family_index;
 
         static void init();
 
         static void destroy();
 
+    private:
+
+        static void findGraphicQueue();
+        static void findPhysicalDevice();
     };
 
 }
