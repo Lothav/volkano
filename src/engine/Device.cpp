@@ -106,5 +106,5 @@ void vkn::Device::init()
 
 void vkn::Device::destroy()
 {
-    vkDestroyDevice(physical_device, nullptr);
+    vkDestroyDevice(device, nullptr);
 }

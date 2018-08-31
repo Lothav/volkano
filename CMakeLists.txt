@@ -26,7 +26,7 @@ include_directories(include engine/)
 include_directories(include external/)
 
 # SOURCE FILES
-set(CORE_MAIN_FILE src/main.cpp)
+set(CORE_MAIN_FILE src/main.cpp src/Volkano.hpp src/Volkano.cpp)
 file(GLOB_RECURSE CORE_HEADER_FILES src/engine/*)
 file(GLOB_RECURSE EXTERNAL_HEADER_FILES external/*)
 

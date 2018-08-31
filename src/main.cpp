@@ -1,31 +1,11 @@
 #include <iostream>
-#include "engine/Instance.hpp"
-#include "engine/Debug.hpp"
-#include "engine/window/Window.hpp"
+#include "Volkano.hpp"
 
 int main(int argc, char* argv[])
 {
-    vkn::Window::init();
-    {
-        vkn::Instance::init();
-        {
-#ifdef DEBUG
-            vkn::Debug::init();
-            {
-#endif
-                vkn::Window::initSurface();
-                {
+    vkn::Volkano::init();
 
-                }
-                vkn::Window::destroySurface();
-#ifdef DEBUG
-            }
-            vkn::Debug::destroy();
-#endif
-        }
-        vkn::Instance::destroy();
-    }
-    vkn::Window::destroy();
+    vkn::Volkano::cleanup();
 
     return EXIT_SUCCESS;
 }
