@@ -50,16 +50,17 @@ void vkn::Device::init()
 
 void vkn::Device::destroy()
 {
+    vkDeviceWaitIdle(device);
     vkDestroyDevice(device, nullptr);
 }
 
 void vkn::Device::findPhysicalDevice()
 {
     std::vector<VkPhysicalDevice> gpu_vector;
-    VkResult res = vkEnumeratePhysicalDevices(Instance::instance, &queue_family_count, nullptr);
+    VkResult res = vkEnumeratePhysicalDevices(Instance::getInstance(), &queue_family_count, nullptr);
     assert(res == VK_SUCCESS && queue_family_count);
     gpu_vector.resize(queue_family_count);
-    res = vkEnumeratePhysicalDevices(Instance::instance, &queue_family_count, gpu_vector.data());
+    res = vkEnumeratePhysicalDevices(Instance::getInstance(), &queue_family_count, gpu_vector.data());
     assert(res == VK_SUCCESS);
 
     uint gpu_index = 0;

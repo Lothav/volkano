@@ -13,15 +13,7 @@ IF (NOT Vulkan_FOUND)
 ENDIF()
 message(STATUS "Vulkan lib path: " ${Vulkan_LIBRARY})
 
-# FIND XCB
-find_package(XCB REQUIRED)
-IF (NOT XCB_FOUND)
-    message(FATAL_ERROR "XCB not find!")
-ENDIF()
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_USE_PLATFORM_XCB_KHR")
-message(STATUS "XCB libs: " ${XCB_LIBRARIES})
-
-# FIND SDL
+# FIND SDL2
 find_package(SDL2 REQUIRED)
 IF (NOT SDL2_FOUND)
     message(FATAL_ERROR "SDL2 not find!")
@@ -37,7 +29,7 @@ file(GLOB_RECURSE EXTERNAL_HEADER_FILES external/*)
 
 # ADD EXEC AND LINK LIBS
 add_executable(volkano ${CORE_MAIN_FILE} ${CORE_HEADER_FILES} ${EXTERNAL_HEADER_FILES})
-target_link_libraries(volkano ${XCB_LIBRARIES} ${SDL2_LIBRARY} ${Vulkan_LIBRARY})
+target_link_libraries(volkano ${SDL2_LIBRARY} ${Vulkan_LIBRARY})
 
 # BUILD SDL2 DEPENDENCY
 add_dependencies(volkano ${SDL2_BUILD_COMMAND})

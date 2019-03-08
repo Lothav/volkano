@@ -7,6 +7,7 @@
 
 #include <vulkan/vulkan.h>
 #include <vector>
+#include <zconf.h>
 
 namespace vkn
 {

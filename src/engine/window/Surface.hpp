@@ -13,9 +13,7 @@ namespace vkn
     class Surface
     {
 
-    protected:
-
-        Surface() = default;
+    private:
 
         static uint16_t     width;
         static uint16_t     height;
@@ -23,13 +21,10 @@ namespace vkn
 
     public:
 
-        virtual const char* getSurfaceName() { return nullptr; }
+        Surface() = delete;
 
-        virtual void initWindow() {}
-        virtual void initSurface() {}
-
-        virtual void destroyWindow() {}
-        virtual void destroySurface() {}
+        static void init();
+        static void destroy();
 
     };
 }

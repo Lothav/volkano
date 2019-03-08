@@ -4,17 +4,6 @@
 
 #include "Volkano.hpp"
 
-void vkn::Volkano::cleanup() noexcept
-{
-    vkn::Device::destroy();
-    vkn::Window::destroySurface();
-#ifdef DEBUG
-    vkn::Debug::destroy();
-#endif
-    vkn::Instance::destroy();
-    vkn::Window::destroy();
-}
-
 void vkn::Volkano::init() noexcept
 {
     vkn::Window::init();
@@ -22,6 +11,17 @@ void vkn::Volkano::init() noexcept
 #ifdef DEBUG
     vkn::Debug::init();
 #endif
-    vkn::Window::initSurface();
+    vkn::Surface::init();
     vkn::Device::init();
+}
+
+void vkn::Volkano::cleanup() noexcept
+{
+    vkn::Device::destroy();
+    vkn::Surface::destroy();
+#ifdef DEBUG
+    vkn::Debug::destroy();
+#endif
+    vkn::Instance::destroy();
+    vkn::Window::destroy();
 }

@@ -10,10 +10,9 @@ VkDebugUtilsMessengerEXT            vkn::Debug::dbg_messenger;
 
 void vkn::Debug::init()
 {
-
     // Setup our pointers to the VK_EXT_debug_utils commands
-    CreateDebugUtilsMessengerEXT  = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(Instance::instance, "vkCreateDebugUtilsMessengerEXT");
-    DestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(Instance::instance, "vkDestroyDebugUtilsMessengerEXT");
+    CreateDebugUtilsMessengerEXT  = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(Instance::getInstance(), "vkCreateDebugUtilsMessengerEXT");
+    DestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(Instance::getInstance(), "vkDestroyDebugUtilsMessengerEXT");
 
     PFN_vkDebugUtilsMessengerCallbackEXT debug_messenger_callback = [](
             VkDebugUtilsMessageSeverityFlagBitsEXT       messageSeverity,
@@ -46,11 +45,11 @@ void vkn::Debug::init()
             VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
             VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 
-    VkResult result = CreateDebugUtilsMessengerEXT(Instance::instance, &dbg_messenger_create_info, nullptr, &dbg_messenger);
+    VkResult result = CreateDebugUtilsMessengerEXT(Instance::getInstance(), &dbg_messenger_create_info, nullptr, &dbg_messenger);
     assert(result == VK_SUCCESS);
 }
 
 void vkn::Debug::destroy()
 {
-    DestroyDebugUtilsMessengerEXT(Instance::instance, dbg_messenger, nullptr);
+    DestroyDebugUtilsMessengerEXT(Instance::getInstance(), dbg_messenger, nullptr);
 }

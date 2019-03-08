@@ -5,11 +5,13 @@
 #ifndef VOLKANO_WINDOW_HPP
 #define VOLKANO_WINDOW_HPP
 
+#include "SDL.h"
+#include "SDL_vulkan.h"
+
 #include <memory>
 #include <cassert>
 #include <iostream>
 #include "Surface.hpp"
-#include "XCBSurface.hpp"
 
 namespace vkn
 {
@@ -19,15 +21,14 @@ namespace vkn
     private:
 
         static std::shared_ptr<Surface> surface;
+        static SDL_Window* window;
 
     public:
 
         static void init();
-        static void initSurface();
         static void destroy();
-        static void destroySurface();
 
-        static const char* getSurfaceName();
+        static SDL_Window* getWindow();
 
     };
 }

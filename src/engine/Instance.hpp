@@ -31,17 +31,18 @@ namespace vkn
          * It will only be initiate if driver supports it
          * */
         constexpr static std::array<const char *, 1> DESIRED_LAYERS = {
-                "VK_LAYER_LUNARG_standard_validation"
+            "VK_LAYER_LUNARG_standard_validation"
         };
 
-    public:
-
         static VkInstance instance;
+
+    public:
 
         Instance() = delete;
 
         static void init();
         static void destroy();
+        static VkInstance getInstance();
 
     private:
 

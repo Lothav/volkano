@@ -29,6 +29,20 @@ namespace vkn
 
         static void init();
         static void destroy();
+
+        static inline void logInfo(const std::string &log_msg)
+        {
+        #ifdef DEBUG
+            std::cout << log_msg << std::endl;
+        #endif
+        };
+
+        static inline void logError(const std::string &log_msg)
+        {
+        #ifdef DEBUG
+            std::cerr << log_msg << std::endl;
+        #endif
+        };
     };
 }
 

@@ -4,23 +4,28 @@
 
 #include "Instance.hpp"
 #include "window/Window.hpp"
+#include "Debug.hpp"
 
 VkInstance vkn::Instance::instance;
 constexpr std::array<const char *, 1> vkn::Instance::DESIRED_LAYERS;
 
+VkInstance vkn::Instance::getInstance()
+{
+    return instance;
+}
+
 void vkn::Instance::init()
 {
     auto layers_names = getLayersNames();
-    std::cout << "Using Layers:" << std::endl;
+    vkn::Debug::logInfo("Using Layers:");
     for(auto i : layers_names) {
-        std::cout << i << std::endl;
+        vkn::Debug::logInfo(i);
     }
 
-    setGlobalExtensionProperties(nullptr);
     auto extensions_names = getExtensionsNames();
-    std::cout << "Using Extensions:" << std::endl;
+    vkn::Debug::logInfo("Using Extensions:");
     for(auto i : extensions_names) {
-        std::cout << i << std::endl;
+        vkn::Debug::logInfo(i);
     }
 
     VkApplicationInfo app_info = {};
@@ -54,12 +59,20 @@ void vkn::Instance::destroy()
 std::vector<const char *> vkn::Instance::getExtensionsNames()
 {
     std::vector<const char *> _instance_extension_names;
-    _instance_extension_names.emplace_back(VK_KHR_SURFACE_EXTENSION_NAME);
-    _instance_extension_names.emplace_back(vkn::Window::getSurfaceName());
+    auto window = Window::getWindow();
+
+    uint32_t extensions_count = 0;
+    SDL_Vulkan_GetInstanceExtensions(window, &extensions_count, nullptr);
+    auto extensions = std::make_shared<std::array<const char*, 2>>();
+    SDL_Vulkan_GetInstanceExtensions(window, &extensions_count, &extensions.get()->front());
+
+    for(auto extension_name: *extensions.get())
+        _instance_extension_names.emplace_back(extension_name);
 
 #ifdef DEBUG
     _instance_extension_names.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 #endif
+
     return _instance_extension_names;
 }
 

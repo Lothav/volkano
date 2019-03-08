@@ -5,40 +5,32 @@
 #include "Window.hpp"
 
 std::shared_ptr<vkn::Surface> vkn::Window::surface;
+SDL_Window* vkn::Window::window;
 
 void vkn::Window::init()
 {
-#ifdef VK_USE_PLATFORM_XCB_KHR
-    surface = XCBSurface::getInstance();
-#else
-    std::cerr << "Platform not supported!" << std::endl;
-    assert(false);
-#endif
-
-    surface->initWindow();
-}
-
-void vkn::Window::initSurface()
-{
-    surface->initSurface();
-}
-
-const char* vkn::Window::getSurfaceName()
-{
-    if(surface == nullptr) {
-        std::cerr << "Surface not initiated!" << std::endl;
-        assert(false);
+    // Setup SDL
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
+    {
+        printf("Error: %s\n", SDL_GetError());
+        return;
     }
 
-    return surface->getSurfaceName();
+    // Setup window
+    SDL_DisplayMode current;
+    SDL_GetCurrentDisplayMode(0, &current);
+    auto window_flags = (SDL_WindowFlags)(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+
+    window = SDL_CreateWindow("Hell Yeah!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
 }
 
 void vkn::Window::destroy()
 {
-    surface->destroyWindow();
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
-void vkn::Window::destroySurface()
+SDL_Window* vkn::Window::getWindow()
 {
-    surface->destroySurface();
+    return window;
 }
