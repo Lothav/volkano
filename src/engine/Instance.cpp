@@ -104,10 +104,10 @@ std::vector<const char *> vkn::Instance::getLayersNames()
 
     assert(res == VK_SUCCESS);
 
-    std::cout << "Layers available:" << std::endl;
+    Debug::logInfo("Layers available:");
     std::vector<const char *> layer_names;
     for(auto i : layer_props_v) {
-        std::cout << i.properties.layerName << std::endl;
+        Debug::logInfo(i.properties.layerName);
         for(auto j : Instance::DESIRED_LAYERS) {
             if(0 == strcmp(j, i.properties.layerName)) {
                 layer_names.push_back(j);

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <climits>
 #include "Instance.hpp"
+#include "Debug.hpp"
 
 VkDevice                                vkn::Device::device;
 VkPhysicalDevice                        vkn::Device::physical_device;
@@ -67,17 +68,19 @@ void vkn::Device::findPhysicalDevice()
 
     assert(gpu_vector.size() > gpu_index);
 
-    std::cout << "========================================================" << std::endl;
-    std::cout << "Devices found:" << std::endl;
-    for (uint i = 0; i < gpu_vector.size(); i++) {
+    Debug::logInfo("========================================================");
+    Debug::logInfo("Devices found: ");
+    for (uint i = 0; i < gpu_vector.size(); i++)
+    {
         VkPhysicalDeviceProperties device_properties;
         vkGetPhysicalDeviceProperties(gpu_vector[i], &device_properties);
-        std::cout << "\tDevice[" << i << "]: " << device_properties.deviceName << std::endl;
-        std::cout << "\t\tType: " << device_properties.deviceType << std::endl;
-        std::cout << "\t\tAPI: " << (device_properties.apiVersion >> 22) << "." << ((device_properties.apiVersion >> 12) & 0x3ff) << "." << (device_properties.apiVersion & 0xfff) << std::endl;
+
+        Debug::logInfo("\tDevice["  + std::to_string(i) + "]: " + device_properties.deviceName);
+        Debug::logInfo("\t\tType: " + std::to_string(device_properties.deviceType));
+        Debug::logInfo("\t\tAPI: "  + std::to_string(device_properties.apiVersion >> 22) + "." + std::to_string((device_properties.apiVersion >> 12) & 0x3ff) + "." + std::to_string(device_properties.apiVersion & 0xfff));
     }
-    std::cout << "Using Device[" << std::to_string(gpu_index) << "]" << std::endl;
-    std::cout << "========================================================" << std::endl;
+    Debug::logInfo("Using Device[" + std::to_string(gpu_index) + "]");
+    Debug::logInfo("========================================================");
 
     physical_device = gpu_vector[gpu_index];
 }
